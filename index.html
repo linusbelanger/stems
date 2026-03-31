@@ -285,19 +285,19 @@
             });
         </script>
         <script>
-            // 1. Check if the device has a touch screen
-            const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+            // Global flag to track if touch input has been detected
+            let isTouchMuted = false;
 
-            // 2. Variable to track sound state
-            let soundEnabled = isTouchDevice ? false : true;
-
-            // 3. Function to play sound
-            function playSound(soundEffect) {
-                if (soundEnabled) {
-                    soundEffect.play();
-                } else {
-                    console.log("Sound muted on touch device");
-                }
+            /**
+             * Mutes all <audio> and <video> elements currently on the page.
+             */
+            function muteAllMedia() {
+            const mediaElements = document.querySelectorAll("video, audio");
+            mediaElements.forEach((elem) => {
+                elem.muted = true;
+                // Optional: Pause them as well
+                // elem.pause(); 
+            });
             }
         </script>
         <!-- JS MUTE -->
