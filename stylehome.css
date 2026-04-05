@@ -54,6 +54,14 @@ body {
     from {opacity:0}
     to {opacity:1}
 }
+@keyframes animatefadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes animateslidedown {
+    from { transform: translateY(0%); }
+    to { transform: translateY(100%); }
+}
 
 /* START */
 
@@ -107,6 +115,7 @@ body {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    cursor: zoom-out;
     background-color: #0303033c;
     backdrop-filter: blur(4px);
 }
@@ -123,6 +132,7 @@ body {
     padding-left: 40px;
     width: 60%;
     user-select: none;
+    cursor: default;
     -webkit-animation-name: animatefade, animateslide;
     -webkit-animation-duration: 0.2s;
     animation-name: animatefade, animateslide;
@@ -143,8 +153,16 @@ body {
     user-select: none;
     margin-left: -5px;
 }
+.dfHover {
+    cursor: pointer;
+}
 .close span:hover {
     font-family: 'Mono Regular';
+}
+.modal.closing .modal-content {
+    animation-name: animatefadeout, animateslidedown;
+    animation-duration: 0.3s;
+    animation-timing-function: ease;
 }
 #abouttext {
     border-top: 2px solid #030303;
@@ -405,6 +423,88 @@ a:link, a:visited, a:hover, a:active {
         color: #cbcbcb;
     }
 
+/* TRACK HOVER */
+
+.show-vocals .vocals-image {
+    opacity: 1;
+}
+.show-instruments .instruments-image {
+    opacity: 1;
+}
+.show-percussion .percussion-image {
+    opacity: 1;
+}
+.show-bass .bass-image {
+    opacity: 1;
+}
+.show-master .master-image {
+    opacity: 1;
+}
+
+/* REGIONS OPACITY */
+
+.regions img {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.show-vocals .vocals-image {
+    opacity: 0.4;
+}
+.show-instruments .instruments-image {
+    opacity: 0.4;
+}
+.show-percussion .percussion-image {
+    opacity: 0.4;
+}
+.show-bass .bass-image {
+    opacity: 0.4;
+}
+.show-master .master-image {
+    opacity: 0.4;
+}
+.vocals-image:hover {
+    opacity: 1 !important;
+}
+.instruments-image:hover {
+    opacity: 1 !important;
+}
+.percussion-image:hover {
+    opacity: 1 !important;
+}
+.bass-image:hover {
+    opacity: 1 !important;
+}
+.master-image:hover {
+    opacity: 1 !important;
+}
+
+/* REGION HOVER TRACK LABEL */
+
+.show-vocals .VOCtext {
+    font-family: "Mono Medium";
+    color: #E00000;
+}
+
+.show-instruments .INStext {
+    font-family: "Mono Medium";
+    color: #e8aa01;
+}
+
+.show-percussion .PERtext {
+    font-family: "Mono Medium";
+    color: #222A80;
+}
+
+.show-bass .BAStext {
+    font-family: "Mono Medium";
+    color: #91DCAB;
+}
+
+.show-master .MAStext {
+    font-family: "Mono Medium";
+    color: #cbcbcb;
+}
+
 /* REGIONS */
 
 .regions {
@@ -664,7 +764,11 @@ a:link, a:visited, a:hover, a:active {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) {
+    html, body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
     .r1, .r2, .r3, .r5, .r6, .r7, .r8, .r9, .r10, .r11, .r13, .r14, .r15, .r16, .r17, .r18, .r19, .r21, .r22, .r23, .r24, .r25, .r26, .r27, .r29, .r30, .r31, .r32, .r33, .r34, .r35, .r37, .r38, .r39, .r40 {
         display: none;
     }
@@ -686,17 +790,25 @@ a:link, a:visited, a:hover, a:active {
     .tracks {
         grid-area: 2 / 3 / 13 / 5
     }
+    .tracks div {
+        padding-right: 20px;
+    }
     .regions {
         grid-area: 2 / 5 / 13 / 7;
         grid-template-columns: 1fr;
     }
-    .vocals-image, .instruments-image, .percussion-image, .bass-image, .master-image {
+    .regions img {
         opacity: 1;
     }
     .home {
         padding-right: 20px;
     }
-    #mute {
+}
+@media screen and (max-height: 430px) {
+    #startModal {
+        width: 60%;
+    }
+    .meters1, .meters2 {
         display: none;
     }
 }

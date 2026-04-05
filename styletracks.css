@@ -191,7 +191,7 @@ footer {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
     html {
         font-size: 15pt;
         line-height: 17pt;

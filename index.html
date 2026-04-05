@@ -21,7 +21,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>STEMS</h1>
-                    <div class="close dfHover"><span><a href="index.html" title="Leaving so soon?">&times</a></span></div>
+                    <div class="close"><span id="closeModal"><div class="dfHover">&times;</div></span></div>
                 </div>
                 <h2 id="abouttext">WHAT IS MUSIC PRODUCTION?</h2>
                 <p class="modal-text">Producing music is the process of bringing a song idea to fruition. It involves writing, composing, recording, arranging, editing, mixing, and mastering. A music producer uses a software called a DAW (Digital Audio Workstation) like Logic Pro or Pro Tools, along with a number of instruments and plugins, real and virtual, to go from a voice memos demo to a polished, distribution-ready track.</p>
@@ -33,7 +33,7 @@
                 <p class="modal-text">STEMS operates as a web-based archive of free music production resources. The site is arranged like a DAW to help beginners become acquainted with the environment. All the recorded material exists in the large grid on the right, the plugins in the panel on the left, and mixing/mastering at the bottom. Simply click any of the sections to learn more and access the tools.</p>
                 <br>
                 <h2>WHO MADE THIS THING?</h2>
-                <p class="modal-text">This site was thought up, designed, created, coded, (basically everything) by Linus Belanger who has never coded anything in his life. Linus is a self-proclaimed artist and currently a Graphic Design major at OCAD University. Linus is also a hobby music producer and a member of the up-and-coming experimental pop band "<a href="https://open.spotify.com/artist/7tq3DaaPKjemcHZ0dE0M6p?si=uolwnZXOSfCgDctVbKm30w" id="hsc"><u>highspeedcrash.</u></a>"</p>
+                <p class="modal-text">This site was thought up, designed, created, coded, (basically everything) by Linus Belanger who has never coded anything in his life. Linus is a self-proclaimed artist and currently a Graphic Design major at OCAD University. Linus is also a hobby music producer and a member of the up-and-coming experimental pop band "<a id="hsc" href="https://highspeedcrash.bandcamp.com/album/crashtest" target="_blank" rel="noopener noreferrer"><u>highspeedcrash.</u></a>"</p>
                 <br>
                 <h3 id="message">HAPPY CREATING AND REMEMBER:<br> IF IT SOUNDS GOOD, IT'S RIGHT.</h3>
                 <br>
@@ -219,9 +219,26 @@
             }
             window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                modal.classList.add('closing');
+
+                setTimeout(() => {
+                    modal.style.display = "none";
+                    modal.classList.remove('closing');
+                }, 300);
             }
             }
+        </script>
+        <script>
+            const closeBtn = document.getElementById("closeModal");
+
+            closeBtn.onclick = function() {
+                modal.classList.add('closing');
+
+                setTimeout(() => {
+                    modal.style.display = "none";
+                    modal.classList.remove('closing');
+                }, 300);
+            };
         </script>
         <!-- JS SOUNDS -->
         <script>
@@ -235,6 +252,7 @@
                     defaultSound.play();
                 });
             });
+        </script>
         </script>
         <script>
             const triggerElements2 = document.querySelectorAll('.vcHover');
@@ -284,20 +302,14 @@
                 });
             });
         </script>
+        <!-- JS MOBILE MUTE -->
         <script>
-            /**
-             * Mutes all <audio> and <video> elements on the page 
-             * if a touchscreen is detected.
-             */
             function muteOnTouchscreen() {
-                // Detect primary touch input (coarse pointer)
                 const isTouchscreen = window.matchMedia("(pointer: coarse)").matches;
 
                 if (isTouchscreen) {
-                    // Find all audio and video elements
                     const mediaElements = document.querySelectorAll("audio, video");
 
-                    // Set each to muted
                     mediaElements.forEach(media => {
                         media.muted = true;
                     });
@@ -306,8 +318,12 @@
                 }
             }
 
-            // Run immediately on load
             window.addEventListener('DOMContentLoaded', muteOnTouchscreen);
+        </script>
+        <script>
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            document.getElementById('mute').style.display = 'none';
+            }
         </script>
         <!-- JS MUTE -->
         <script>
@@ -329,6 +345,107 @@
                 
                 localStorage.setItem('isMuted', isMuted);
                 updateMuteState();
+            });
+        </script>
+        <!-- JS TRACK HOVER -->
+        <script>
+            const body = document.body;
+
+            // VOCALS
+            const vocText = document.querySelector('.VOCtext');
+            vocText.addEventListener('mouseenter', () => {
+                body.classList.add('show-vocals');
+            });
+            vocText.addEventListener('mouseleave', () => {
+                body.classList.remove('show-vocals');
+            });
+
+            // INSTRUMENTS
+            const insText = document.querySelector('.INStext');
+            insText.addEventListener('mouseenter', () => {
+                body.classList.add('show-instruments');
+            });
+            insText.addEventListener('mouseleave', () => {
+                body.classList.remove('show-instruments');
+            });
+
+            // PERCUSSION
+            const perText = document.querySelector('.PERtext');
+            perText.addEventListener('mouseenter', () => {
+                body.classList.add('show-percussion');
+            });
+            perText.addEventListener('mouseleave', () => {
+                body.classList.remove('show-percussion');
+            });
+
+            // BASS
+            const basText = document.querySelector('.BAStext');
+            basText.addEventListener('mouseenter', () => {
+                body.classList.add('show-bass');
+            });
+            basText.addEventListener('mouseleave', () => {
+                body.classList.remove('show-bass');
+            });
+
+            // MASTER
+            const masText = document.querySelector('.MAStext');
+            masText.addEventListener('mouseenter', () => {
+                body.classList.add('show-master');
+            });
+            masText.addEventListener('mouseleave', () => {
+                body.classList.remove('show-master');
+            });
+        </script>
+        <!-- JS REGION HOVER -->
+        <script>
+            // VOCALS REGIONS
+            document.querySelectorAll('.vcHover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    body.classList.add('show-vocals');
+                });
+                el.addEventListener('mouseleave', () => {
+                    body.classList.remove('show-vocals');
+                });
+            });
+
+            // INSTRUMENTS REGIONS
+            document.querySelectorAll('.inHover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    body.classList.add('show-instruments');
+                });
+                el.addEventListener('mouseleave', () => {
+                    body.classList.remove('show-instruments');
+                });
+            });
+
+            // PERCUSSION
+            document.querySelectorAll('.pcHover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    body.classList.add('show-percussion');
+                });
+                el.addEventListener('mouseleave', () => {
+                    body.classList.remove('show-percussion');
+                });
+            });
+
+            // BASS
+            document.querySelectorAll('.bsHover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    body.classList.add('show-bass');
+                });
+                el.addEventListener('mouseleave', () => {
+                    body.classList.remove('show-bass');
+                });
+            });
+
+            // MASTER (dfHover already exists, reuse carefully)
+            document.querySelectorAll('.r33, .r34, .r35, .r36, .r37, .r38, .r39, .r40').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    body.classList.add('show-master');
+                });
+                el.addEventListener('mouseleave', () => {
+                    body.classList.remove('show-master');
+                });
             });
         </script>
     </body>
